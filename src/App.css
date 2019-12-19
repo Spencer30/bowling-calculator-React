@@ -32,7 +32,99 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  background-image: url('./lane2.jpg');
+  background-size: cover;
+  /* background-position: center; */
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: lightseagreen;
+  text-align: center;
+  font-size: 3.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+table {
+  border: 1px solid white;
+  width: 80%;
+  height: 30px;
+  border-spacing: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  table-layout: fixed;
+  color: white;
+}
+
+.frame {
+  height: 30px;
+  border-right: 1px solid white;
+}
+
+.frame-score {
+  height: 30px;
+  border-right: 1px solid white;
+}
+
+.frame2 {
+  border-bottom: 1px solid white;
+}
+
+th {
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  padding: 0;
+  margin: 0;
+}
+
+.button {
+  border-radius: 50%;
+  color: red;
+  background-color: white;
+  border: none;
+  height: 50px;
+  width: 50px;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+}
+
+.pins {
+  margin-top: 65px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.scoreSheet {
+  text-align: center;
+}
+
+.border-right {
+  border-right: none;
+}
+
+.new-game {
+  margin-top: 4.5rem;
+  background-color: black;
+  color: white;
+  width: 8rem;
+  height: 8rem;
+  border: none;
+  border-radius: 50%;
+
+}
+
+.newGameBall {
+  border-color: black;
+}
+
+button:focus {
+  outline: 0;
 }
