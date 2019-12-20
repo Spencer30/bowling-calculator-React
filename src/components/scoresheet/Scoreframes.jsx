@@ -1,6 +1,6 @@
 import React from "react";
 
-function Scoreframes() {
+function Scoreframes(props) {
     return <div className="container scoreSheet">
     <div className="row">
       <div className="col-lg-12">
@@ -19,8 +19,8 @@ function Scoreframes() {
               <th className="border-right" colSpan="6">10</th>
             </tr>
             <tr>
-              <td colSpan="3" id="frame1a" className="frame"></td>
-              <td colSpan="3" id="frame1b" className="frame frame2"></td>
+              <td colSpan="3" id="frame1a" className="frame">{props.frame1a}</td>
+              <td colSpan="3" id="frame1b" className="frame frame2">{props.frame1b}</td>
               <td colSpan="3" id="frame2a" className="frame"></td>
               <td colSpan="3" id="frame2b" className="frame frame2"></td>
               <td colSpan="3" id="frame3a" className="frame"></td>
