@@ -1,20 +1,27 @@
 import React from "react";
 
 function Pins(){
-    return <div class="container pins">
-    <div class="row">
-      <div class="col-lg-12 pinsBtn">
-        <button class="button" id="Zero" value="0">0</button>
-        <button class="button" id="One" value="1">1</button>
-        <button class="button" id="Two">2</button>
-        <button class="button" id="Three">3</button>
-        <button class="button" id="Four">4</button>
-        <button class="button" id="Five">5</button>
-        <button class="button" id="Six">6</button>
-        <button class="button" id="Seven">7</button>
-        <button class="button" id="Eight">8</button>
-        <button class="button" id="Nine">9</button>
-        <button class="button" id="Ten">10</button>
+    let frameArray = [];
+    function handleClick(event) {
+      let value = event.target.value;
+      frameArray.push(Number(value));
+      console.log(frameArray);
+    }
+
+    return <div className="container pins">
+    <div className="row">
+      <div className="col-lg-12 pinsBtn">
+        <button onClick={handleClick} className="button" id="Zero" value={0}>0</button>
+        <button onClick={handleClick} className="button" id="One" value={1}>1</button>
+        <button onClick={handleClick} className="button" id="Two" value={2}>2</button>
+        <button onClick={handleClick} className="button" id="Three" value={3}>3</button>
+        <button onClick={handleClick} className="button" id="Four" value={4}>4</button>
+        <button onClick={handleClick} className="button" id="Five" value={5}>5</button>
+        <button onClick={handleClick} className="button" id="Six" value={6}>6</button>
+        <button onClick={handleClick} className="button" id="Seven" value={7}>7</button>
+        <button onClick={handleClick} className="button" id="Eight" value={8}>8</button>
+        <button onClick={handleClick} className="button" id="Nine" value={9}>9</button>
+        <button onClick={handleClick} className="button" id="Ten" value={10}>10</button>
       </div>
     </div>
   </div>
