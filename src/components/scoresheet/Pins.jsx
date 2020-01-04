@@ -1,8 +1,6 @@
 import React from "react";
 
 function Pins(props){
-    
-
     return <div className="container pins">
     <div className="row">
       <div className="col-lg-12 pinsBtn">
