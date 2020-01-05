@@ -23,8 +23,8 @@ function Scoreframes(props) {
               <td colSpan="3" id="frame1b" className="frame frame2">{props.frame1b}</td>
               <td colSpan="3" id="frame2a" className="frame">{props.frame2a}</td>
               <td colSpan="3" id="frame2b" className="frame frame2">{props.frame2b}</td>
-              <td colSpan="3" id="frame3a" className="frame"></td>
-              <td colSpan="3" id="frame3b" className="frame frame2"></td>
+              <td colSpan="3" id="frame3a" className="frame">{props.frame3a}</td>
+              <td colSpan="3" id="frame3b" className="frame frame2">{props.frame3b}</td>
               <td colSpan="3" id="frame4a" className="frame"></td>
               <td colSpan="3" id="frame4b" className="frame frame2"></td>
               <td colSpan="3" id="frame5a" className="frame"></td>

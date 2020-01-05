@@ -29,6 +29,7 @@ let currentFrame = 1;
 let isRollOne = true;
 const frame1 = new Frame("Frame One", "", "", 0, 0, false, false, false, false);
 const frame2 = new Frame("Frame Two", "", "", 0, 0, false, false, false, false);
+const frame3 = new Frame("Frame Two", "", "", 0, 0, false, false, false, false);
 
 // function rackPins(value) {
 //     let pinsLeft = 10 - value;
@@ -69,11 +70,26 @@ const pushPinsToFrame = frameArray => {
       frame2.frameComplete = true;
       currentFrame++;
     }
+  } else if (!frame3.frameComplete && currentFrame === 3) {
+    if (!frame3.ballOneComplete) {
+      frame3.ballOne = frameArray.shift();
+      // rackPins(frame1.ballOne)
+      frame3.ballOneComplete = true;
+      if (frame3.ballOne === 10) {
+        frame3.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame3.ballTwo = frameArray.shift();
+      frame3.ballTwoComplete = true;
+      frame3.frameComplete = true;
+      currentFrame++;
+    }
   }
 };
 
 function GameControl() {
-  //useState for Pins. Should rerack after ball one unless it's a strike.
+  //useState for Pins. Should rerack after roll one unless it's a strike. Then fresh pins after roll two
   const [pinTen, setPinTen] = useState(false);
   const [pinNine, setPinNine] = useState(false);
   const [pinEight, setPinEight] = useState(false);
@@ -83,8 +99,9 @@ function GameControl() {
   const [pinFour, setPinFour] = useState(false);
   const [pinThree, setPinThree] = useState(false);
   const [pinTwo, setPinTwo] = useState(false);
-  // const [pinOne, setPinOne] = useState(false);
+  
 
+  //Update the frame markings and numbers
   const [frameOne, setFrameOne] = useState({
     frame1a: "",
     frame1b: ""
@@ -93,9 +110,15 @@ function GameControl() {
     frame2a: "",
     frame2b: ""
   });
+  const [frameThree, setFrameThree] = useState({
+    frame3a: "",
+    frame3b: ""
+  });
 
+  //Handle the click event when pins (button click) are knocked down
   let frameArray = [];
   function handlePinsKnocked(event) {
+    //Get the number of pins knocked down
     let value = event.target.value;
     frameArray.push(Number(value));
     pushPinsToFrame(frameArray);
@@ -237,6 +260,35 @@ function GameControl() {
         }
       });
     }
+    if (frame3.ballOneComplete) {
+      setFrameThree(prevValue => {
+        if (frame3.ballOneComplete && !frame3.ballTwoComplete) {
+          if (frame3.ballOne === 10) {
+            return {
+              frame3a: prevValue.frame2a,
+              frame3b: "X"
+            };
+          } else {
+            return {
+              frame3a: frame3.ballOne,
+              frame3b: prevValue.frame3b
+            };
+          }
+        } else if (frame3.ballOneComplete && frame3.frameComplete) {
+          if (frame3.ballOne + frame3.ballTwo === 10) {
+            return {
+              frame3a: prevValue.frame3a,
+              frame3b: "/"
+            };
+          } else {
+            return {
+              frame3a: prevValue.frame3a,
+              frame3b: frame3.ballTwo
+            };
+          }
+        }
+      });
+    }
     console.log(frame1);
     console.log(frame2);
   }
@@ -261,6 +313,8 @@ function GameControl() {
         frame1b={frameOne.frame1b}
         frame2a={frameTwo.frame2a}
         frame2b={frameTwo.frame2b}
+        frame3a={frameThree.frame3a}
+        frame3b={frameThree.frame3b}
       />
     </div>
   );
