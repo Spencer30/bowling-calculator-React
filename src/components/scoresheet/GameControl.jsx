@@ -12,7 +12,8 @@ class Frame {
     frameComplete,
     scoreComplete,
     ballOneComplete,
-    ballTwoComplete
+    ballTwoComplete,
+    displayScore,
   ) {
     this.name = name;
     this.ballOne = ballOne;
@@ -23,17 +24,29 @@ class Frame {
     this.scoreComplete = scoreComplete;
     this.ballOneComplete = ballOneComplete;
     this.ballTwoComplete = ballTwoComplete;
+    this.displayScore = displayScore;
+    
   }
 }
 let currentFrame = 1;
 let isRollOne = true;
-let totalScore = 0;
-const frame1 = new Frame("Frame One", "", "", 0, false, false, false, false, false);
-const frame2 = new Frame("Frame Two", "", "", 0, false, false, false, false, false);
-const frame3 = new Frame("Frame Two", "", "", 0, false, false, false, false, false);
+const frame1 = new Frame("Frame One", "", "", 0, false, false, false, false, false, "");
+const frame2 = new Frame("Frame Two", "", "", 0, false, false, false, false, false, "");
+const frame3 = new Frame("Frame Three", "", "", 0, false, false, false, false, false, "");
+const frame4 = new Frame("Frame Four", "", "", 0, false, false, false, false, false, "");
 
+let arrayOfFrames = [];
+const getScore= (arrOfFrames, sum) => {
+  sum = 0;
+  for(let i=0; i<arrOfFrames.length; i++){
+    console.log(`this is the frame ${i+1} score: ` + arrOfFrames[i].frameScore)
+      sum += arrOfFrames[i].frameScore;
+  }
+  console.log(`this is the sum: ${sum} and this is the arr length: ${arrayOfFrames.length}`)
+  return sum;
+}
 
-const calcScoreHigh = () => {
+const firstFrame = () => {
   //Frame 1
   if(frame1.frameComplete) {
     if(frame1.ballOne === 10) {//Strike
@@ -41,29 +54,106 @@ const calcScoreHigh = () => {
         if(frame2.ballOne === 10) {//2 Strikes in a Row
           if(frame3.ballOne){
             frame1.frameScore = frame1.ballOne + frame2.ballOne + frame3.ballOne;
-            totalScore += frame1.frameScore;
+            if(!arrayOfFrames.includes(frame1)){
+              arrayOfFrames.push(frame1)
+            }
             frame1.frameScoreComplete = true;
+            if (frame1.displayScore === ""){
+              frame1.displayScore = getScore(arrayOfFrames);;
+            }
+            secondFrame();
           }
         } else if (frame2.ballTwo) {//Missed second attempt at strike
           frame1.frameScore = frame1.ballOne + frame2.ballOne + frame2.ballTwo;
-          totalScore += frame1.frameScore;
+          if(!arrayOfFrames.includes(frame1)){
+            arrayOfFrames.push(frame1)
+          }
           frame1.frameScoreComplete = true;
-          console.log('hit'); 
+          if (frame1.displayScore === ""){
+            frame1.displayScore = getScore(arrayOfFrames);;
+          } 
+          secondFrame();
         }
       }
     } else if (frame1.ballOne + frame1.ballTwo === 10) {//Made a Spare
       if (frame2.ballOne) {
         frame1.frameScore = 10 + frame2.ballOne;
-        totalScore += frame1.frameScore;
+        if(!arrayOfFrames.includes(frame1)){
+          arrayOfFrames.push(frame1)
+        }
         frame1.frameScoreComplete = true;
+        if (frame1.displayScore === ""){
+          frame1.displayScore = getScore(arrayOfFrames);
+        }
+        secondFrame();
       }
     } else if (frame1.ballOne + frame1.ballTwo !== 10) {
       frame1.frameScore = frame1.ballOne + frame1.ballTwo;//Made an open
-      totalScore += frame1.frameScore;
+      if(!arrayOfFrames.includes(frame1)){
+        arrayOfFrames.push(frame1)
+      }
       frame1.frameScoreComplete = true;
+      if (frame1.displayScore === ""){
+        frame1.displayScore = getScore(arrayOfFrames);
+      }
+      secondFrame();
     }
   }
 }
+
+const secondFrame = () => {
+  //Frame 2
+  if(frame2.frameComplete) {
+    if(frame2.ballOne === 10) {//Strike
+      if(frame3.ballOne){
+        if(frame3.ballOne === 10) {//2 Strikes in a Row
+          if(frame4.ballOne){
+            frame2.frameScore = frame2.ballOne + frame3.ballOne + frame4.ballOne;
+            if(!arrayOfFrames.includes(frame2)){
+              arrayOfFrames.push(frame2)
+            }
+            frame2.frameScoreComplete = true;
+            if (frame2.displayScore === ""){
+              frame2.displayScore = getScore(arrayOfFrames);
+            }
+          }
+        } else if (frame3.ballTwo) {//Missed second attempt at strike
+          frame2.frameScore = frame2.ballOne + frame3.ballOne + frame3.ballTwo;
+          if(!arrayOfFrames.includes(frame2)){
+            arrayOfFrames.push(frame2)
+          }
+          frame2.frameScoreComplete = true;
+          if (frame2.displayScore === ""){
+            frame2.displayScore = getScore(arrayOfFrames);
+          } 
+        }
+      }
+    } else if (frame2.ballOne + frame2.ballTwo === 10) {//Made a Spare
+      if (frame3.ballOne) {
+        frame2.frameScore = 10 + frame3.ballOne;
+        if(!arrayOfFrames.includes(frame2)){
+          arrayOfFrames.push(frame2)
+        }
+        frame2.frameScoreComplete = true;
+        if (frame2.displayScore === ""){
+          frame2.displayScore = getScore(arrayOfFrames);
+        }
+      }
+    } else if (frame2.ballOne + frame2.ballTwo !== 10) {//Made an open
+      frame2.frameScore = frame2.ballOne + frame2.ballTwo;
+      if(!arrayOfFrames.includes(frame2)){
+        arrayOfFrames.push(frame2)
+      }
+      frame2.frameScoreComplete = true;
+      if (frame2.displayScore === ""){
+        frame2.displayScore = getScore(arrayOfFrames);
+      }
+      
+    }
+  }
+}
+
+
 const updateFrameMarkings = frameArray => {
   if (!frame1.frameComplete && currentFrame === 1) {
     if (!frame1.ballOneComplete) {
@@ -124,9 +214,7 @@ function GameControl() {
   //Update the frame score
   const [frameOneScore, setFrameOneScore] = useState({frame1Score:""});
   const [frameTwoScore, setFrameTwoScore] = useState({frame2Score:""});
-  const [frameThreeScore, setFrameThreeScore] = useState({frame3Score:""});
-
-  //const [open, setSnackBarState] = useState(variant ? true : false); 
+  // const [frameThreeScore, setFrameThreeScore] = useState({frame3Score:""});
 
   //Update the frame markings and numbers
   const [frameOne, setFrameOne] = useState({
@@ -151,8 +239,8 @@ function GameControl() {
     let value = event.target.value;
     frameArray.push(Number(value));
     updateFrameMarkings(frameArray);
-    calcScoreHigh();
-
+    firstFrame();
+    
     //Rack the Pins
     if (isRollOne) {
       let pinsLeft = 10 - value;
@@ -324,12 +412,12 @@ function GameControl() {
     //** HANDLE THE STATE OF THE FRAME SCORES */
   if(frame1.frameScoreComplete) {
     setFrameOneScore(() => {
-      return {frame1Score:totalScore}     
+      return {frame1Score:frame1.displayScore}     
     })    
   }
   if(frame2.frameScoreComplete) {
     setFrameTwoScore(() => {
-      return {frame2Score:totalScore}     
+      return {frame2Score:frame2.displayScore}     
     })    
   }
   }

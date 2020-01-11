@@ -47,7 +47,7 @@ function Scoreframes(props) {
             </tr>
             <tr>
               <td colSpan="6" id="frameOne" className="frame-score">{props.frame1Score}</td>
-              <td colSpan="6" id="frameTwo" className="frame-score"></td>
+              <td colSpan="6" id="frameTwo" className="frame-score">{props.frame2Score}</td>
               <td colSpan="6" id="frameThree" className="frame-score"></td>
               <td colSpan="6" id="frameFour" className="frame-score"></td>
               <td colSpan="6" id="frameFive" className="frame-score"></td>
