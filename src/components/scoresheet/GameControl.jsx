@@ -3,18 +3,7 @@ import Scoreframes from "./Scoreframes";
 import Pins from "./Pins";
 
 class Frame {
-  constructor(
-    name,
-    ballOne,
-    ballTwo,
-    frameScore,
-    frameScoreComplete, 
-    frameComplete,
-    scoreComplete,
-    ballOneComplete,
-    ballTwoComplete,
-    displayScore,
-  ) {
+  constructor(name,ballOne,ballTwo,frameScore,frameScoreComplete,frameComplete,scoreComplete,ballOneComplete,ballTwoComplete,displayScore,) {
     this.name = name;
     this.ballOne = ballOne;
     this.ballTwo = ballTwo;
@@ -24,10 +13,16 @@ class Frame {
     this.scoreComplete = scoreComplete;
     this.ballOneComplete = ballOneComplete;
     this.ballTwoComplete = ballTwoComplete;
-    this.displayScore = displayScore;
-    
+    this.displayScore = displayScore;    
   }
 }
+class FrameTen extends Frame {
+  constructor(ballThree) {
+    super(ballThree);
+    this.ballThree = ballThree;    
+  }
+}
+
 let currentFrame = 1;
 let isRollOne = true;
 const frame1 = new Frame("Frame One", "", "", 0, false, false, false, false, false, "");
@@ -35,6 +30,11 @@ const frame2 = new Frame("Frame Two", "", "", 0, false, false, false, false, fal
 const frame3 = new Frame("Frame Three", "", "", 0, false, false, false, false, false, "");
 const frame4 = new Frame("Frame Four", "", "", 0, false, false, false, false, false, "");
 const frame5 = new Frame("Frame Five", "", "", 0, false, false, false, false, false, "");
+const frame6 = new Frame("Frame Six", "", "", 0, false, false, false, false, false, "");
+const frame7 = new Frame("Frame Seven", "", "", 0, false, false, false, false, false, "");
+const frame8 = new Frame("Frame Eight", "", "", 0, false, false, false, false, false, "");
+const frame9 = new Frame("Frame Nine", "", "", 0, false, false, false, false, false, "");
+const frame10 = new FrameTen("Frame Ten", "", "", 0, false, false, false, false, false, "", "");
 
 let arrayOfFrames = [];
 const getScore= (arrOfFrames, sum) => {
@@ -213,61 +213,387 @@ const thirdFrame = () => {
 }
 
 const fourthFrame = () => {
-  return;
   //Frame 4
-  if(frame3.frameComplete) {
-    if(frame3.ballOne === 10) {//Strike
-      if(frame4.ballOne){
-        if(frame4.ballOne === 10) {//2 Strikes in a Row
-          if(frame5.ballOne){
-            frame3.frameScore = frame3.ballOne + frame4.ballOne + frame5.ballOne;
-            if(!arrayOfFrames.includes(frame3)){
-              arrayOfFrames.push(frame3)
+  if(frame4.frameComplete) {
+    if(frame4.ballOne === 10) {//Strike
+      if(frame5.ballOne){
+        if(frame5.ballOne === 10) {//2 Strikes in a Row
+          if(frame6.ballOne){
+            frame4.frameScore = frame4.ballOne + frame5.ballOne + frame6.ballOne;
+            if(!arrayOfFrames.includes(frame4)){
+              arrayOfFrames.push(frame4)
             }
-            frame3.frameScoreComplete = true;
-            if (frame3.displayScore === ""){
-              frame3.displayScore = getScore(arrayOfFrames);
+            frame4.frameScoreComplete = true;
+            if (frame4.displayScore === ""){
+              frame4.displayScore = getScore(arrayOfFrames);
             }
-            fourthFrame();
+            fifthFrame();
           }
-        } else if (frame4.ballTwo) {//Missed second attempt at strike
-          frame3.frameScore = frame3.ballOne + frame4.ballOne + frame4.ballTwo;
-          if(!arrayOfFrames.includes(frame3)){
-            arrayOfFrames.push(frame3)
+        } else if (frame5.ballTwo) {//Missed second attempt at strike
+          frame4.frameScore = frame4.ballOne + frame5.ballOne + frame5.ballTwo;
+          if(!arrayOfFrames.includes(frame4)){
+            arrayOfFrames.push(frame4)
           }
-          frame3.frameScoreComplete = true;
-          if (frame3.displayScore === ""){
-            frame3.displayScore = getScore(arrayOfFrames);
+          frame4.frameScoreComplete = true;
+          if (frame4.displayScore === ""){
+            frame4.displayScore = getScore(arrayOfFrames);
           } 
-          fourthFrame();
+          fifthFrame();
         }
       }
-    } else if (frame3.ballOne + frame3.ballTwo === 10) {//Made a Spare
-      if (frame4.ballOne) {
-        frame3.frameScore = 10 + frame4.ballOne;
-        if(!arrayOfFrames.includes(frame3)){
-          arrayOfFrames.push(frame3)
+    } else if (frame4.ballOne + frame4.ballTwo === 10) {//Made a Spare
+      if (frame5.ballOne) {
+        frame4.frameScore = 10 + frame5.ballOne;
+        if(!arrayOfFrames.includes(frame4)){
+          arrayOfFrames.push(frame4)
         }
-        frame3.frameScoreComplete = true;
-        if (frame3.displayScore === ""){
-          frame3.displayScore = getScore(arrayOfFrames);
+        frame4.frameScoreComplete = true;
+        if (frame4.displayScore === ""){
+          frame4.displayScore = getScore(arrayOfFrames);
         }
-        fourthFrame();
+        fifthFrame();
       }
-    } else if (frame3.ballOne + frame3.ballTwo !== 10) {//Made an open
-      frame3.frameScore = frame3.ballOne + frame3.ballTwo;
-      if(!arrayOfFrames.includes(frame3)){
-        arrayOfFrames.push(frame3)
+    } else if (frame4.ballOne + frame4.ballTwo !== 10) {//Made an open
+      frame4.frameScore = frame4.ballOne + frame4.ballTwo;
+      if(!arrayOfFrames.includes(frame4)){
+        arrayOfFrames.push(frame4)
       }
-      frame3.frameScoreComplete = true;
-      if (frame3.displayScore === ""){
-        frame3.displayScore = getScore(arrayOfFrames);
+      frame4.frameScoreComplete = true;
+      if (frame4.displayScore === ""){
+        frame4.displayScore = getScore(arrayOfFrames);
       }
-      fourthFrame();
+      fifthFrame();
+    }
+  }
+}
+const fifthFrame = () => {
+  //Frame 5
+  if(frame5.frameComplete) {
+    if(frame5.ballOne === 10) {//Strike
+      if(frame6.ballOne){
+        if(frame6.ballOne === 10) {//2 Strikes in a Row
+          if(frame7.ballOne){
+            frame5.frameScore = frame5.ballOne + frame6.ballOne + frame7.ballOne;
+            if(!arrayOfFrames.includes(frame5)){
+              arrayOfFrames.push(frame5)
+            }
+            frame5.frameScoreComplete = true;
+            if (frame5.displayScore === ""){
+              frame5.displayScore = getScore(arrayOfFrames);
+            }
+            sixthFrame();
+          }
+        } else if (frame6.ballTwo) {//Missed second attempt at strike
+          frame5.frameScore = frame5.ballOne + frame6.ballOne + frame6.ballTwo;
+          if(!arrayOfFrames.includes(frame5)){
+            arrayOfFrames.push(frame5)
+          }
+          frame5.frameScoreComplete = true;
+          if (frame5.displayScore === ""){
+            frame5.displayScore = getScore(arrayOfFrames);
+          } 
+          sixthFrame();
+        }
+      }
+    } else if (frame5.ballOne + frame5.ballTwo === 10) {//Made a Spare
+      if (frame6.ballOne) {
+        frame5.frameScore = 10 + frame6.ballOne;
+        if(!arrayOfFrames.includes(frame5)){
+          arrayOfFrames.push(frame5)
+        }
+        frame5.frameScoreComplete = true;
+        if (frame5.displayScore === ""){
+          frame5.displayScore = getScore(arrayOfFrames);
+        }
+        sixthFrame();
+      }
+    } else if (frame5.ballOne + frame5.ballTwo !== 10) {//Made an open
+      frame5.frameScore = frame5.ballOne + frame5.ballTwo;
+      if(!arrayOfFrames.includes(frame5)){
+        arrayOfFrames.push(frame5)
+      }
+      frame5.frameScoreComplete = true;
+      if (frame5.displayScore === ""){
+        frame5.displayScore = getScore(arrayOfFrames);
+      }
+      sixthFrame();
     }
   }
 }
 
+const sixthFrame = () => {
+  //Frame 6
+  if(frame6.frameComplete) {
+    if(frame6.ballOne === 10) {//Strike
+      if(frame7.ballOne){
+        if(frame7.ballOne === 10) {//2 Strikes in a Row
+          if(frame8.ballOne){
+            frame6.frameScore = frame6.ballOne + frame7.ballOne + frame8.ballOne;
+            if(!arrayOfFrames.includes(frame6)){
+              arrayOfFrames.push(frame6)
+            }
+            frame6.frameScoreComplete = true;
+            if (frame6.displayScore === ""){
+              frame6.displayScore = getScore(arrayOfFrames);
+            }
+            seventhFrame();
+          }
+        } else if (frame7.ballTwo) {//Missed second attempt at strike
+          frame6.frameScore = frame6.ballOne + frame7.ballOne + frame7.ballTwo;
+          if(!arrayOfFrames.includes(frame6)){
+            arrayOfFrames.push(frame6)
+          }
+          frame6.frameScoreComplete = true;
+          if (frame6.displayScore === ""){
+            frame6.displayScore = getScore(arrayOfFrames);
+          } 
+          seventhFrame();
+        }
+      }
+    } else if (frame6.ballOne + frame6.ballTwo === 10) {//Made a Spare
+      if (frame7.ballOne) {
+        frame6.frameScore = 10 + frame7.ballOne;
+        if(!arrayOfFrames.includes(frame6)){
+          arrayOfFrames.push(frame6)
+        }
+        frame6.frameScoreComplete = true;
+        if (frame6.displayScore === ""){
+          frame6.displayScore = getScore(arrayOfFrames);
+        }
+        seventhFrame();
+      }
+    } else if (frame6.ballOne + frame6.ballTwo !== 10) {//Made an open
+      frame6.frameScore = frame6.ballOne + frame6.ballTwo;
+      if(!arrayOfFrames.includes(frame6)){
+        arrayOfFrames.push(frame6)
+      }
+      frame6.frameScoreComplete = true;
+      if (frame6.displayScore === ""){
+        frame6.displayScore = getScore(arrayOfFrames);
+      }
+      seventhFrame();
+    }
+  }
+}
+
+const seventhFrame = () => {
+  //Frame 7
+  if(frame7.frameComplete) {
+    if(frame7.ballOne === 10) {//Strike
+      if(frame8.ballOne){
+        if(frame8.ballOne === 10) {//2 Strikes in a Row
+          if(frame9.ballOne){
+            frame7.frameScore = frame7.ballOne + frame8.ballOne + frame9.ballOne;
+            if(!arrayOfFrames.includes(frame7)){
+              arrayOfFrames.push(frame7)
+            }
+            frame7.frameScoreComplete = true;
+            if (frame7.displayScore === ""){
+              frame7.displayScore = getScore(arrayOfFrames);
+            }
+            eighthFrame();
+          }
+        } else if (frame8.ballTwo) {//Missed second attempt at strike
+          frame7.frameScore = frame7.ballOne + frame8.ballOne + frame8.ballTwo;
+          if(!arrayOfFrames.includes(frame7)){
+            arrayOfFrames.push(frame7)
+          }
+          frame7.frameScoreComplete = true;
+          if (frame7.displayScore === ""){
+            frame7.displayScore = getScore(arrayOfFrames);
+          } 
+          eighthFrame();
+        }
+      }
+    } else if (frame7.ballOne + frame7.ballTwo === 10) {//Made a Spare
+      if (frame8.ballOne) {
+        frame7.frameScore = 10 + frame8.ballOne;
+        if(!arrayOfFrames.includes(frame7)){
+          arrayOfFrames.push(frame7)
+        }
+        frame7.frameScoreComplete = true;
+        if (frame7.displayScore === ""){
+          frame7.displayScore = getScore(arrayOfFrames);
+        }
+        eighthFrame();
+      }
+    } else if (frame7.ballOne + frame7.ballTwo !== 10) {//Made an open
+      frame7.frameScore = frame7.ballOne + frame7.ballTwo;
+      if(!arrayOfFrames.includes(frame7)){
+        arrayOfFrames.push(frame7)
+      }
+      frame7.frameScoreComplete = true;
+      if (frame7.displayScore === ""){
+        frame7.displayScore = getScore(arrayOfFrames);
+      }
+      eighthFrame();
+    }
+  }
+}
+const eighthFrame = () => {
+  //Frame 8
+  if(frame8.frameComplete) {
+    if(frame8.ballOne === 10) {//Strike
+      if(frame9.ballOne){
+        if(frame9.ballOne === 10) {//2 Strikes in a Row
+          if(frame10.ballOne){
+            frame8.frameScore = frame8.ballOne + frame9.ballOne + frame10.ballOne;
+            if(!arrayOfFrames.includes(frame8)){
+              arrayOfFrames.push(frame8)
+            }
+            frame8.frameScoreComplete = true;
+            if (frame8.displayScore === ""){
+              frame8.displayScore = getScore(arrayOfFrames);
+            }
+            ninthFrame();
+          }
+        } else if (frame9.ballTwo) {//Missed second attempt at strike
+          frame8.frameScore = frame8.ballOne + frame9.ballOne + frame9.ballTwo;
+          if(!arrayOfFrames.includes(frame8)){
+            arrayOfFrames.push(frame8)
+          }
+          frame8.frameScoreComplete = true;
+          if (frame8.displayScore === ""){
+            frame8.displayScore = getScore(arrayOfFrames);
+          } 
+          ninthFrame();
+        }
+      }
+    } else if (frame8.ballOne + frame8.ballTwo === 10) {//Made a Spare
+      if (frame9.ballOne) {
+        frame8.frameScore = 10 + frame9.ballOne;
+        if(!arrayOfFrames.includes(frame8)){
+          arrayOfFrames.push(frame8)
+        }
+        frame8.frameScoreComplete = true;
+        if (frame8.displayScore === ""){
+          frame8.displayScore = getScore(arrayOfFrames);
+        }
+        ninthFrame();
+      }
+    } else if (frame8.ballOne + frame8.ballTwo !== 10) {//Made an open
+      frame8.frameScore = frame8.ballOne + frame8.ballTwo;
+      if(!arrayOfFrames.includes(frame8)){
+        arrayOfFrames.push(frame8)
+      }
+      frame8.frameScoreComplete = true;
+      if (frame8.displayScore === ""){
+        frame8.displayScore = getScore(arrayOfFrames);
+      }
+      ninthFrame();
+    }
+  }
+}
+
+const ninthFrame = () => {
+  //Frame 9
+  if(frame9.frameComplete) {
+    if(frame9.ballOne === 10) {//Strike
+      if(frame10.ballOne){
+        if(frame10.ballOne === 10) {//2 Strikes in a Row
+          if(frame10.ballTwo){
+            frame9.frameScore = frame9.ballOne + frame10.ballOne + frame10.ballTwo;
+            if(!arrayOfFrames.includes(frame9)){
+              arrayOfFrames.push(frame9)
+            }
+            frame9.frameScoreComplete = true;
+            if (frame9.displayScore === ""){
+              frame9.displayScore = getScore(arrayOfFrames);
+            }
+            tenthFrame();
+          }
+        } else if (frame10.ballTwo) {//Missed second attempt at strike
+          frame9.frameScore = frame9.ballOne + frame10.ballOne + frame10.ballTwo;
+          if(!arrayOfFrames.includes(frame9)){
+            arrayOfFrames.push(frame9)
+          }
+          frame9.frameScoreComplete = true;
+          if (frame9.displayScore === ""){
+            frame9.displayScore = getScore(arrayOfFrames);
+          } 
+          tenthFrame();
+        }
+      }
+    } else if (frame9.ballOne + frame9.ballTwo === 10) {//Made a Spare
+      if (frame10.ballOne) {
+        frame9.frameScore = 10 + frame10.ballOne;
+        if(!arrayOfFrames.includes(frame9)){
+          arrayOfFrames.push(frame9)
+        }
+        frame9.frameScoreComplete = true;
+        if (frame9.displayScore === ""){
+          frame9.displayScore = getScore(arrayOfFrames);
+        }
+        tenthFrame();
+      }
+    } else if (frame9.ballOne + frame9.ballTwo !== 10) {//Made an open
+      frame9.frameScore = frame9.ballOne + frame9.ballTwo;
+      if(!arrayOfFrames.includes(frame9)){
+        arrayOfFrames.push(frame9)
+      }
+      frame9.frameScoreComplete = true;
+      if (frame9.displayScore === ""){
+        frame9.displayScore = getScore(arrayOfFrames);
+      }
+      tenthFrame();
+    }
+  }
+}
+const tenthFrame = () => {
+  return;
+  //Frame 10
+  if(frame9.frameComplete) {
+    if(frame9.ballOne === 10) {//Strike
+      if(frame10.ballOne){
+        if(frame10.ballOne === 10) {//2 Strikes in a Row
+          if(frame10.ballTwo){
+            frame9.frameScore = frame9.ballOne + frame10.ballOne + frame10.ballTwo;
+            if(!arrayOfFrames.includes(frame9)){
+              arrayOfFrames.push(frame9)
+            }
+            frame9.frameScoreComplete = true;
+            if (frame9.displayScore === ""){
+              frame9.displayScore = getScore(arrayOfFrames);
+            }
+            tenthFrame();
+          }
+        } else if (frame10.ballTwo) {//Missed second attempt at strike
+          frame9.frameScore = frame9.ballOne + frame10.ballOne + frame10.ballTwo;
+          if(!arrayOfFrames.includes(frame9)){
+            arrayOfFrames.push(frame9)
+          }
+          frame9.frameScoreComplete = true;
+          if (frame9.displayScore === ""){
+            frame9.displayScore = getScore(arrayOfFrames);
+          } 
+          tenthFrame();
+        }
+      }
+    } else if (frame9.ballOne + frame9.ballTwo === 10) {//Made a Spare
+      if (frame10.ballOne) {
+        frame9.frameScore = 10 + frame10.ballOne;
+        if(!arrayOfFrames.includes(frame9)){
+          arrayOfFrames.push(frame9)
+        }
+        frame9.frameScoreComplete = true;
+        if (frame9.displayScore === ""){
+          frame9.displayScore = getScore(arrayOfFrames);
+        }
+        tenthFrame();
+      }
+    } else if (frame9.ballOne + frame9.ballTwo !== 10) {//Made an open
+      frame9.frameScore = frame9.ballOne + frame9.ballTwo;
+      if(!arrayOfFrames.includes(frame9)){
+        arrayOfFrames.push(frame9)
+      }
+      frame9.frameScoreComplete = true;
+      if (frame9.displayScore === ""){
+        frame9.displayScore = getScore(arrayOfFrames);
+      }
+      tenthFrame();
+    }
+  }
+}
 //Get pins knocked down, add them to ball 1&2, then increase frame count
 const updateFrames = frameArray => {
   if (!frame1.frameComplete && currentFrame === 1) {
@@ -328,6 +654,97 @@ const updateFrames = frameArray => {
       currentFrame++;
     }
   }
+  else if (!frame5.frameComplete && currentFrame === 5) {
+    if (!frame5.ballOneComplete) {
+      frame5.ballOne = frameArray.shift();
+      frame5.ballOneComplete = true;
+      if (frame5.ballOne === 10) {
+        frame5.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame5.ballTwo = frameArray.shift();
+      frame5.ballTwoComplete = true;
+      frame5.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  else if (!frame6.frameComplete && currentFrame === 6) {
+    if (!frame6.ballOneComplete) {
+      frame6.ballOne = frameArray.shift();
+      frame6.ballOneComplete = true;
+      if (frame6.ballOne === 10) {
+        frame6.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame6.ballTwo = frameArray.shift();
+      frame6.ballTwoComplete = true;
+      frame6.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  else if (!frame7.frameComplete && currentFrame === 7) {
+    if (!frame7.ballOneComplete) {
+      frame7.ballOne = frameArray.shift();
+      frame7.ballOneComplete = true;
+      if (frame7.ballOne === 10) {
+        frame7.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame7.ballTwo = frameArray.shift();
+      frame7.ballTwoComplete = true;
+      frame7.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  else if (!frame8.frameComplete && currentFrame === 8) {
+    if (!frame8.ballOneComplete) {
+      frame8.ballOne = frameArray.shift();
+      frame8.ballOneComplete = true;
+      if (frame8.ballOne === 10) {
+        frame8.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame8.ballTwo = frameArray.shift();
+      frame8.ballTwoComplete = true;
+      frame8.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  else if (!frame9.frameComplete && currentFrame === 9) {
+    if (!frame9.ballOneComplete) {
+      frame9.ballOne = frameArray.shift();
+      frame9.ballOneComplete = true;
+      if (frame9.ballOne === 10) {
+        frame9.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame9.ballTwo = frameArray.shift();
+      frame9.ballTwoComplete = true;
+      frame9.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  else if (!frame10.frameComplete && currentFrame === 10) {
+    if (!frame10.ballOneComplete) {
+      frame10.ballOne = frameArray.shift();
+      frame10.ballOneComplete = true;
+      if (frame10.ballOne === 10) {
+        frame10.frameComplete = true;
+        currentFrame++;
+      }
+    } else {
+      frame10.ballTwo = frameArray.shift();
+      frame10.ballTwoComplete = true;
+      frame10.frameComplete = true;
+      currentFrame++;
+    }
+  }
+  
 };
 
 function GameControl() {
@@ -346,6 +763,11 @@ function GameControl() {
   const [frameTwoScore, setFrameTwoScore] = useState({frame2Score:""});
   const [frameThreeScore, setFrameThreeScore] = useState({frame3Score:""});
   const [frameFourScore, setFrameFourScore] = useState({frame4Score:""});
+  const [frameFiveScore, setFrameFiveScore] = useState({frame5Score:""});
+  const [frameSixScore, setFrameSixScore] = useState({frame6Score:""});
+  const [frameSevenScore, setFrameSevenScore] = useState({frame7Score:""});
+  const [frameEightScore, setFrameEightScore] = useState({frame8Score:""});
+  const [frameNineScore, setFrameNineScore] = useState({frame9Score:""});
 
   //Update the frame markings and numbers
   const [frameOne, setFrameOne] = useState({
@@ -363,6 +785,26 @@ function GameControl() {
   const [frameFour, setFrameFour] = useState({
     frame4a: "",
     frame4b: ""
+  });
+  const [frameFive, setFrameFive] = useState({
+    frame5a: "",
+    frame5b: ""
+  });
+  const [frameSix, setFrameSix] = useState({
+    frame6a: "",
+    frame6b: ""
+  });
+  const [frameSeven, setFrameSeven] = useState({
+    frame7a: "",
+    frame7b: ""
+  });
+  const [frameEight, setFrameEight] = useState({
+    frame8a: "",
+    frame8b: ""
+  });
+  const [frameNine, setFrameNine] = useState({
+    frame9a: "",
+    frame9b: ""
   });
 
   
@@ -574,6 +1016,158 @@ function GameControl() {
         }
       });
     }
+    //Frame 5
+    if (frame5.ballOneComplete) {
+      setFrameFive(prevValue => {
+        if (frame5.ballOneComplete && !frame5.ballTwoComplete) {
+          if (frame5.ballOne === 10) {
+            return {
+              frame5a: prevValue.frame5a,
+              frame5b: "X"
+            };
+          } else {
+            return {
+              frame5a: frame5.ballOne,
+              frame5b: prevValue.frame5b
+            };
+          }
+        } else if (frame5.ballOneComplete && frame5.frameComplete) {
+          if (frame5.ballOne + frame5.ballTwo === 10) {
+            return {
+              frame5a: prevValue.frame5a,
+              frame5b: "/"
+            };
+          } else {
+            return {
+              frame5a: prevValue.frame5a,
+              frame5b: frame5.ballTwo
+            };
+          }
+        }
+      });
+    }
+    //Frame 6
+    if (frame6.ballOneComplete) {
+      setFrameSix(prevValue => {
+        if (frame6.ballOneComplete && !frame6.ballTwoComplete) {
+          if (frame6.ballOne === 10) {
+            return {
+              frame6a: prevValue.frame6a,
+              frame6b: "X"
+            };
+          } else {
+            return {
+              frame6a: frame6.ballOne,
+              frame6b: prevValue.frame6b
+            };
+          }
+        } else if (frame6.ballOneComplete && frame6.frameComplete) {
+          if (frame6.ballOne + frame6.ballTwo === 10) {
+            return {
+              frame6a: prevValue.frame6a,
+              frame6b: "/"
+            };
+          } else {
+            return {
+              frame6a: prevValue.frame6a,
+              frame6b: frame6.ballTwo
+            };
+          }
+        }
+      });
+    }
+    //Frame 7
+    if (frame7.ballOneComplete) {
+      setFrameSeven(prevValue => {
+        if (frame7.ballOneComplete && !frame7.ballTwoComplete) {
+          if (frame7.ballOne === 10) {
+            return {
+              frame7a: prevValue.frame7a,
+              frame7b: "X"
+            };
+          } else {
+            return {
+              frame7a: frame7.ballOne,
+              frame7b: prevValue.frame7b
+            };
+          }
+        } else if (frame7.ballOneComplete && frame7.frameComplete) {
+          if (frame7.ballOne + frame7.ballTwo === 10) {
+            return {
+              frame7a: prevValue.frame7a,
+              frame7b: "/"
+            };
+          } else {
+            return {
+              frame7a: prevValue.frame7a,
+              frame7b: frame7.ballTwo
+            };
+          }
+        }
+      });
+    }
+    //Frame 8
+    if (frame8.ballOneComplete) {
+      setFrameEight(prevValue => {
+        if (frame8.ballOneComplete && !frame8.ballTwoComplete) {
+          if (frame8.ballOne === 10) {
+            return {
+              frame8a: prevValue.frame8a,
+              frame8b: "X"
+            };
+          } else {
+            return {
+              frame8a: frame8.ballOne,
+              frame8b: prevValue.frame8b
+            };
+          }
+        } else if (frame8.ballOneComplete && frame8.frameComplete) {
+          if (frame8.ballOne + frame8.ballTwo === 10) {
+            return {
+              frame8a: prevValue.frame8a,
+              frame8b: "/"
+            };
+          } else {
+            return {
+              frame8a: prevValue.frame8a,
+              frame8b: frame8.ballTwo
+            };
+          }
+        }
+      });
+    }
+    //Frame 9
+    if (frame9.ballOneComplete) {
+      setFrameNine(prevValue => {
+        if (frame9.ballOneComplete && !frame9.ballTwoComplete) {
+          if (frame9.ballOne === 10) {
+            return {
+              frame9a: prevValue.frame9a,
+              frame9b: "X"
+            };
+          } else {
+            return {
+              frame9a: frame9.ballOne,
+              frame9b: prevValue.frame9b
+            };
+          }
+        } else if (frame9.ballOneComplete && frame9.frameComplete) {
+          if (frame9.ballOne + frame9.ballTwo === 10) {
+            return {
+              frame9a: prevValue.frame9a,
+              frame9b: "/"
+            };
+          } else {
+            return {
+              frame9a: prevValue.frame9a,
+              frame9b: frame9.ballTwo
+            };
+          }
+        }
+      });
+    }
+    
+
     //** HANDLE THE STATE OF THE FRAME SCORES */
   if(frame1.frameScoreComplete) {
     setFrameOneScore(() => {
@@ -593,6 +1187,31 @@ function GameControl() {
   if(frame4.frameScoreComplete) {
     setFrameFourScore(() => {
       return {frame4Score:frame4.displayScore}     
+    })    
+  }
+  if(frame5.frameScoreComplete) {
+    setFrameFiveScore(() => {
+      return {frame5Score:frame5.displayScore}     
+    })    
+  }
+  if(frame6.frameScoreComplete) {
+    setFrameSixScore(() => {
+      return {frame6Score:frame6.displayScore}     
+    })    
+  }
+  if(frame7.frameScoreComplete) {
+    setFrameSevenScore(() => {
+      return {frame7Score:frame7.displayScore}     
+    })    
+  }
+  if(frame8.frameScoreComplete) {
+    setFrameEightScore(() => {
+      return {frame8Score:frame8.displayScore}     
+    })    
+  }
+  if(frame9.frameScoreComplete) {
+    setFrameNineScore(() => {
+      return {frame9Score:frame9.displayScore}     
     })    
   }
 
@@ -628,6 +1247,21 @@ function GameControl() {
         frame4a={frameFour.frame4a}
         frame4b={frameFour.frame4b}
         frame4Score={frameFourScore.frame4Score}
+        frame5a={frameFive.frame5a}
+        frame5b={frameFive.frame5b}
+        frame5Score={frameFiveScore.frame5Score}
+        frame6a={frameSix.frame6a}
+        frame6b={frameSix.frame6b}
+        frame6Score={frameSixScore.frame6Score}
+        frame7a={frameSeven.frame7a}
+        frame7b={frameSeven.frame7b}
+        frame7Score={frameSevenScore.frame7Score}
+        frame8a={frameEight.frame8a}
+        frame8b={frameEight.frame8b}
+        frame8Score={frameEightScore.frame8Score}
+        frame9a={frameNine.frame9a}
+        frame9b={frameNine.frame9b}
+        frame9Score={frameNineScore.frame9Score}
       />
     </div>
   );
