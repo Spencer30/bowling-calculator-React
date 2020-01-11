@@ -8,7 +8,7 @@ class Frame {
     ballOne,
     ballTwo,
     frameScore,
-    totalScore,
+    frameScoreComplete, 
     frameComplete,
     scoreComplete,
     ballOneComplete,
@@ -18,7 +18,7 @@ class Frame {
     this.ballOne = ballOne;
     this.ballTwo = ballTwo;
     this.frameScore = frameScore;
-    this.totalScore = totalScore;
+    this.frameScoreComplete = frameScoreComplete;
     this.frameComplete = frameComplete;
     this.scoreComplete = scoreComplete;
     this.ballOneComplete = ballOneComplete;
@@ -27,23 +27,47 @@ class Frame {
 }
 let currentFrame = 1;
 let isRollOne = true;
-const frame1 = new Frame("Frame One", "", "", 0, 0, false, false, false, false);
-const frame2 = new Frame("Frame Two", "", "", 0, 0, false, false, false, false);
-const frame3 = new Frame("Frame Two", "", "", 0, 0, false, false, false, false);
+let totalScore = 0;
+const frame1 = new Frame("Frame One", "", "", 0, false, false, false, false, false);
+const frame2 = new Frame("Frame Two", "", "", 0, false, false, false, false, false);
+const frame3 = new Frame("Frame Two", "", "", 0, false, false, false, false, false);
 
-// function rackPins(value) {
-//     let pinsLeft = 10 - value;
-//     if (pinsLeft === 9) {
-//       setPinTen(true);
 
-//     }
-// }
-
-const pushPinsToFrame = frameArray => {
+const calcScoreHigh = () => {
+  //Frame 1
+  if(frame1.frameComplete) {
+    if(frame1.ballOne === 10) {//Strike
+      if(frame2.ballOne){
+        if(frame2.ballOne === 10) {//2 Strikes in a Row
+          if(frame3.ballOne){
+            frame1.frameScore = frame1.ballOne + frame2.ballOne + frame3.ballOne;
+            totalScore += frame1.frameScore;
+            frame1.frameScoreComplete = true;
+          }
+        } else if (frame2.ballTwo) {//Missed second attempt at strike
+          frame1.frameScore = frame1.ballOne + frame2.ballOne + frame2.ballTwo;
+          totalScore += frame1.frameScore;
+          frame1.frameScoreComplete = true;
+          console.log('hit'); 
+        }
+      }
+    } else if (frame1.ballOne + frame1.ballTwo === 10) {//Made a Spare
+      if (frame2.ballOne) {
+        frame1.frameScore = 10 + frame2.ballOne;
+        totalScore += frame1.frameScore;
+        frame1.frameScoreComplete = true;
+      }
+    } else if (frame1.ballOne + frame1.ballTwo !== 10) {
+      frame1.frameScore = frame1.ballOne + frame1.ballTwo;//Made an open
+      totalScore += frame1.frameScore;
+      frame1.frameScoreComplete = true;
+    }
+  }
+}
+const updateFrameMarkings = frameArray => {
   if (!frame1.frameComplete && currentFrame === 1) {
     if (!frame1.ballOneComplete) {
       frame1.ballOne = frameArray.shift();
-      // rackPins(frame1.ballOne)
       frame1.ballOneComplete = true;
       if (frame1.ballOne === 10) {
         frame1.frameComplete = true;
@@ -58,7 +82,6 @@ const pushPinsToFrame = frameArray => {
   } else if (!frame2.frameComplete && currentFrame === 2) {
     if (!frame2.ballOneComplete) {
       frame2.ballOne = frameArray.shift();
-      // rackPins(frame1.ballOne)
       frame2.ballOneComplete = true;
       if (frame2.ballOne === 10) {
         frame2.frameComplete = true;
@@ -73,7 +96,6 @@ const pushPinsToFrame = frameArray => {
   } else if (!frame3.frameComplete && currentFrame === 3) {
     if (!frame3.ballOneComplete) {
       frame3.ballOne = frameArray.shift();
-      // rackPins(frame1.ballOne)
       frame3.ballOneComplete = true;
       if (frame3.ballOne === 10) {
         frame3.frameComplete = true;
@@ -99,7 +121,12 @@ function GameControl() {
   const [pinFour, setPinFour] = useState(false);
   const [pinThree, setPinThree] = useState(false);
   const [pinTwo, setPinTwo] = useState(false);
-  
+  //Update the frame score
+  const [frameOneScore, setFrameOneScore] = useState({frame1Score:""});
+  const [frameTwoScore, setFrameTwoScore] = useState({frame2Score:""});
+  const [frameThreeScore, setFrameThreeScore] = useState({frame3Score:""});
+
+  //const [open, setSnackBarState] = useState(variant ? true : false); 
 
   //Update the frame markings and numbers
   const [frameOne, setFrameOne] = useState({
@@ -115,13 +142,16 @@ function GameControl() {
     frame3b: ""
   });
 
+  
+
   //Handle the click event when pins (button click) are knocked down
   let frameArray = [];
   function handlePinsKnocked(event) {
     //Get the number of pins knocked down
     let value = event.target.value;
     frameArray.push(Number(value));
-    pushPinsToFrame(frameArray);
+    updateFrameMarkings(frameArray);
+    calcScoreHigh();
 
     //Rack the Pins
     if (isRollOne) {
@@ -203,7 +233,7 @@ function GameControl() {
         isRollOne=true;
     }
 
-    //Udate the frame markings
+    //Udate the frame markings starting with frame 1
     setFrameOne(prevValue => {
       if (frame1.ballOneComplete && !frame1.ballTwoComplete) {
         if (frame1.ballOne === 10) {
@@ -231,6 +261,7 @@ function GameControl() {
         }
       }
     });
+    //Frame 2
     if (frame2.ballOneComplete) {
       setFrameTwo(prevValue => {
         if (frame2.ballOneComplete && !frame2.ballTwoComplete) {
@@ -260,6 +291,7 @@ function GameControl() {
         }
       });
     }
+    //Frame 3
     if (frame3.ballOneComplete) {
       setFrameThree(prevValue => {
         if (frame3.ballOneComplete && !frame3.ballTwoComplete) {
@@ -289,9 +321,19 @@ function GameControl() {
         }
       });
     }
-    console.log(frame1);
-    console.log(frame2);
+    //** HANDLE THE STATE OF THE FRAME SCORES */
+  if(frame1.frameScoreComplete) {
+    setFrameOneScore(() => {
+      return {frame1Score:totalScore}     
+    })    
   }
+  if(frame2.frameScoreComplete) {
+    setFrameTwoScore(() => {
+      return {frame2Score:totalScore}     
+    })    
+  }
+  }
+
 
   return (
     <div>
@@ -311,8 +353,10 @@ function GameControl() {
       <Scoreframes
         frame1a={frameOne.frame1a}
         frame1b={frameOne.frame1b}
+        frame1Score={frameOneScore.frame1Score}
         frame2a={frameTwo.frame2a}
         frame2b={frameTwo.frame2b}
+        frame2Score={frameTwoScore.frame2Score}
         frame3a={frameThree.frame3a}
         frame3b={frameThree.frame3b}
       />
